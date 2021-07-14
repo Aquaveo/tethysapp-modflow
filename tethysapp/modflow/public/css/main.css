@@ -1,0 +1,422 @@
+/********************************************************************************
+ * Name: main.css
+ * Author: nswain
+ * Created On: September 4, 2015
+ * Copyright: (c) Aquaveo 2015
+ * License:
+ ********************************************************************************/
+
+// Primary Color Hex: #00787B
+// Primary Color RGB: rgb(0, 120, 123)
+// Secondary Color Hex: #009195
+// Secondary Color RGB: rgb(0, 145, 149)
+// Link Color Hex: #005f62
+// Link Color RGB: rgb(0, 95, 98)
+
+.header-action a {
+  padding: 0 15px;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  -webkit-transition: background-color 0.3s;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  -ms-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+.header-action a:hover {
+  background-color: #a0000a;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  -moz-transition: background-color 0.3s, color 0.3s;
+  -o-transition: background-color 0.3s, color 0.3s;
+  -ms-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+#app-header .tethys-app-header #nav-title-wrapper .icon-wrapper img {
+    border-radius: 0;
+}
+
+/* Get rid of stupid box around click buttons */
+:focus {
+  outline: none;
+}
+
+#app-content-wrapper #app-content #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+#app-content-wrapper #app-content #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+#showBackground{
+  opacity:    0.6;
+  background: #000;
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  top:        0;
+  left:       0;
+  position:   fixed;
+
+}
+
+#showImage{
+  background: #000;
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  position:   relative;
+}
+
+#waitLoading{
+
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  top:        0;
+  left:       0;
+  position:   fixed;
+
+}
+
+#div_project_description{
+    width:      30%;
+}
+
+#app-content-wrapper #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+#app-content-wrapper.show-nav #app-content #app-actions {
+  padding-right: 320px;
+}
+
+#resetmaplayersBtn {
+    color: #fff;
+    background-color: #eea236;
+    border-color: #eea236;
+}
+
+#resetmaplayersBtn:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #ec971f;
+}
+
+#resetmaplayersBtn:focus {
+    color: #fff;
+    background-color: #d58512;
+    border-color: #d58512;
+}
+
+textarea.form-control {
+    height: auto;
+    width: 450px;
+}
+
+/* Following section used to override native Tethys CSS */
+#app-header .tethys-app-header #nav-title-wrapper .app-title-wrapper .app-title {
+    padding-top: 5px;
+}
+
+#app-content-wrapper #app-content #epanet-legend-wrapper {
+    position: absolute;
+    bottom: 80px;
+    background-color: #dddddd;
+    padding: 10px;
+    right: 20px;
+    border: #aaaaaa 1px solid;
+    border-radius: 5px;
+    display: none;
+}
+
+#app-content-wrapper #app-content #app-actions {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+
+#app-header .tethys-app-header .toggle-nav {
+    margin-top: 8px;
+}
+
+.btn-fat {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+#app-content-wrapper #app-content #app-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row-reverse nowrap;
+}
+
+#app-content-wrapper #app-content #app-actions .btn {
+    margin-left: 11px;
+    padding: 4px 8px;
+    margin-top: 5px;
+}
+
+#app-content-wrapper #app-content #app-navigation {
+    position: absolute;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #efefef;
+    /*padding: 0 15px;*/
+    padding-top: 65px;
+    overflow-y: auto;
+}
+
+#app-header .tethys-app-header {
+    position: fixed;
+    /* background: #1b95dc; */
+    /*height: 57px;*/
+    background-color: rgba(41, 171, 225, 0.5);
+    width: 100%;
+    z-index: 100;
+    margin-top: -100px;
+}
+
+#inner-app-content {
+    padding: 10px 15px;
+}
+
+.project-details.table-header {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  padding-top: 10px;
+  margin-right: 15px;
+}
+
+.project-details.table-edit-btn {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+}
+
+.project-details.preview-image {
+    display: block;
+}
+
+.project-details.curve-pattern-form {
+    margin-top: 20px;
+}
+
+/* Buttons styles */
+
+a {
+  color: #8a0923 !important;
+}
+
+a:hover {
+  color: #005f62;
+}
+
+a:active {
+  color: #004648;
+}
+
+.btn-primary, .nav-btn-primary {
+    color: #fff !important;
+    background-color: #ba0c2f;
+    border-color: #ba0c2f;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus,
+.nav-btn-primary:hover,
+.nav-btn-primary:active,
+.nav-btn-primary:focus {
+    color: #fff !important;
+    background-color: #8a0923 !important;
+    border-color: #8a0923 !important;
+}
+
+.btn-job {
+    color: #000;
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+}
+
+.btn-job:hover {
+    color: #000;
+    background-color: #e6b800;
+    border-color: #e6b800;
+}
+
+/* NAV STYLES */
+.nav-pills>li>a {
+    border: #dddddd 1px solid;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+.nav-stacked>li+li {
+    margin-top: -1px;
+}
+
+.nav-pills>li>a.nav-btn {
+    border: #dddddd 1px solid;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.nav-pills>li>a.nav-btn-danger {
+    color: #fff!important;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.nav-pills>li>a.nav-btn-warning {
+    color: #fff!important;
+    background-color: #f0ad4e!important;
+    border-color: #eea236!important;
+}
+
+.nav-pills>li>a.nav-btn-default {
+    color: #333!important;
+    background-color: #fff!important;
+    border-color: #ccc!important;
+}
+
+.nav-btn-dropdown {
+    color: #444444!important;
+}
+
+.nav-btn-dropdown:hover {
+    background: none!important;
+}
+
+.rotate-img-on {
+    transform: rotate(-180deg);
+    transition: transform 0.3s;
+}
+
+.rotate-img-off {
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+}
+
+.nav-pills>li>a.nav-btn[disabled], .nav-pills>li>a.nav-btn:hover[disabled],
+.nav-pills>li>a.nav-btn:focus[disabled], .nav-pills>li>a.nav-btn:active[disabled],
+.nav-pills>li>a.nav-btn.active[disabled],
+.nav-pills>li>a.nav-btn.disabled, .nav-pills>li>a.nav-btn:hover.disabled,
+.nav-pills>li>a.nav-btn:focus.disabled, .nav-pills>li>a.nav-btn:active.disabled,
+.nav-pills>li>a.nav-btn.active.disabled {
+    color: #fff!important;
+    background-color: #aaaaaa!important;
+    border-color: #999999!important;
+    pointer-events: none;
+    cursor: default;
+}
+
+.nav-pills>li>a.nav-btn-danger:hover, .nav-pills>li>a.nav-btn-danger:focus,
+.nav-pills>li>a.nav-btn-danger:active, .nav-pills>li>a.nav-btn-danger.active {
+    color: #fff!important;
+    background-color: #c9302c!important;
+    border-color: #ac2925!important;
+}
+
+.nav-pills>li>a.nav-btn-warning:hover, .nav-pills>li>a.nav-btn-warning:focus,
+.nav-pills>li>a.nav-btn-warning:active, .nav-pills>li>a.nav-btn-warning.active {
+    color: #fff!important;
+    background-color: #ec971f!important;
+    border-color: #d58512!important;
+}
+
+.nav-pills>li>a.nav-btn-default:hover, .nav-pills>li>a.nav-btn-default:active {
+    color: #333!important;
+    background-color: #e6e6e6!important;
+    border-color: #adadad!important;
+}
+
+#app-content-wrapper #app-content #app-navigation .nav li.title {
+    padding: 10px 0;
+}
+
+.gif.details {
+    position: relative;
+    top: 300px;
+    left: 50%;
+}
+
+.warningScenarioDirty {
+    display: block;
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.flex {
+    display: flex;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-col {
+    flex-direction: column;
+}
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex-centeredContent {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-spaceBetweenContent {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-spaceAroundContent {
+    align-items: center;
+    justify-content: space-around;
+}
+
+.flex-grow2 {
+    flex: 2 0 auto;
+}
+
+.textAlign-left {
+    text-align: left;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+.labelAndInput {
+    padding: 15px;
+}

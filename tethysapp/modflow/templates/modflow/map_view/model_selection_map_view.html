@@ -1,0 +1,58 @@
+{% extends "atcore/map_view/map_view.html" %}
+{% load tethys_gizmos staticfiles %}
+
+{% block header_buttons %}
+  {% if admin_user %}
+    <div class="header-button">
+      <a href="{% url 'modflow:app_users_manage_resources' %}" data-toggle="tooltip" data-placement="bottom" title="Admin">Admin</a>
+    </div>
+  {% endif %}
+    <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+      <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+    </div>
+{% endblock %}
+
+{% block app_navigation_items %}
+  {{ block.super }}
+  {% block back_button %}{% endblock %}
+  {% block legend_tab %}{% endblock %}
+  {% block legend_panel %}{% endblock %}
+{% endblock %}
+
+{% block after_app_content %}
+  {{ block.super }}
+  <div class="hidden" id="show_helper_status" data-value="{{ show_helpers }}"></div>
+  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="help-modal-label">Quick Tip</h4>
+        </div>
+        <div class="modal-body">
+          <p>To begin, select a model in the map and click <strong>Load Model</strong></p>
+          <img class="modal-image" src="/static/modflow/images/model-selection-example.png">
+        </div>
+        <div class="modal-footer">
+          <div class="div-left">
+            <input type="checkbox" id="modal-show-again" {% if not show_helpers %} checked {% endif %}>
+            <label for="modal-show-again">Don't Show Again</label>
+          </div>
+          <div class="div-right">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'modflow/css/map_view.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'modflow/js/model_selection_map_view.js' %}" type="text/javascript"></script>
+{% endblock %}

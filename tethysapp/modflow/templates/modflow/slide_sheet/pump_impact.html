@@ -1,0 +1,83 @@
+<div id="pump_impact">
+  <div class="pump_impact_div">
+    <input type="hidden" id="transient_model" value="{{transient_model}}">
+    <table class="table table-hover table-bordered" id="pump_impact_table">
+      <thead>
+        <th style="width: 5%;"></th>
+        <th class="unit-update">Pumping Rate</th>
+        <th class="unit-update">Unit</th>
+        {% if transient_model %}
+        <th>Start Time({{ time_unit}})</th>
+        <th>Duration ({{ time_unit}})</th>
+        {% endif %}
+        <th>Type <br> (Well/Well Field)</th>
+        <th>Location <br> (Lat, Lon)</th>
+        <th class="unit-update">Depth <br> (#length_unit#)</th>
+        <th class="modflow-upload-shape">
+          <a class="btn btn-default slide-sheet-btn btn-file-input center-btn" data-toggle="modal"
+             data-target="#pump-upload-modal" data-placement="top" title="Upload Well Shapefile/CSV/XLSX">Upload
+          </a>
+        </th>
+        <th class="modflow-add-well" style="width: 130px">
+          <button type="button" class="btn btn-default slide-sheet-btn center-btn" data-toggle="tooltip"
+                  data-placement="top" onclick="MODFLOW_MODEL_MAP_VIEW.add_pump_impact_row()"> Add a Well
+          </button>
+        </th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <div class="row left-align">
+    <table class="table table-hover table-bordered" id="run_options">
+      <thead>
+        <th style="width: 60px;"></th>
+        <th style="width: 300px">Output Option</th>
+        <th style="width: 300px"></th>
+        <th>Output Description</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>Layers</td>
+          {% with layer_options|last as last_layer %}
+          <td><input type="text" id="output_layer" name="output_layer" value="1-{{ last_layer.0 }}" placeholder="Output layers. e.g. <5, 8, 11-13"></td>
+          {% endwith %}
+          <td>Output Layers. e.g. <5, 8, 11-13</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Stress Periods</td>
+            <td><input type="text" id="output_stress_period" name="output_stress_period" value="{{ default_sp }}" placeholder="Output Stress Periods. e.g. <5, 8, 11-13 "></td>
+          <td>Output Stress Periods. <5, 8, 11-13</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="drawdown_status" checked name="output_option"></td>
+          <td>Drawdown</td>
+          <td><input type="text" id="drawdown_interval" name="drawdown_interval" value="0.01, 0.1, 1" title="Drawdown Contour Levels - Comma separated list of drawdown contour levels. Up to 5 levels (ex: 1, 5, 10, 15)"></td>
+          <td>Theoretical drawdown in aquifer adjacent to well</td>
+        </tr>
+        {% if show_depletion_tool %}
+          <tr>
+            <td><input type="checkbox" id="stream_depletion_status" checked name="output_option"></td>
+            <td>Stream Depletion</td>
+            <td><input type="text" id="stream_depletion_tolerance" name="stream_depletion_tolerance" value="0" title="The minimum percent change in streamflow required for a result to be shown in the results"></td>
+            <td>Change in affected stream</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row left-align">
+    <button type="button" id="run-drawdown-btn" class="btn btn-default slide-sheet-btn"
+            onclick="MODFLOW_MODEL_MAP_VIEW.run_pump_impact_tool()">
+      Submit
+    </button>
+    <button onclick="MODFLOW_MODEL_MAP_VIEW.remove_temporary_layers('pump_impact')"
+            class="btn btn-default slide-sheet-btn"> Clear Data
+    </button>
+  </div>
+  <div class="pump-impact-status hidden">
+    <div id="pump-impact-status-bar"></div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+# Python
+*.pydevproject
+*.project
+*.egg-info
+*.class
+*.pyo
+*.pyc
+*.db
+
+# Vi
+*.swp
+
+# System
+*.DS_Store
+
+# Helm
+helm/modflow/charts/
+helm/modflow/requirements.lock
+values-local.yaml
+values-staging.yaml
+values-production.yaml
+
+# Tethys
+tethysapp/modflow/workspaces/*
+tethysapp/modflow/job_executables/modflow_*
+home/*
+
+# Misc
+*.sqlite
+*.idea
+*.coverage

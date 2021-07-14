@@ -1,0 +1,21 @@
+<div id="flow-path">
+    <div class="flow-path_div">
+        <table class="tbl-inline">
+            <tr>
+                <td colspan="3" class="td-inline" style="text-align: left"><strong>Depth Below Water Table (ft)</strong></td>
+            </tr>
+            <tr>
+                <td class="td-inline">
+                    <input type="text" class="form-control custom-size" placeholder="0" id="flow_path_depth" style="text-align: right">
+                </td>
+                <td colspan="2" class="td-align" nowrap>
+                    <button id='modpath-init' class="btn btn-default flow-path-btn" onclick="MODFLOW_MODEL_MAP_VIEW.init_flow_path_creation(0)">Generate Particle</button>
+                    <button onclick="MODFLOW_MODEL_MAP_VIEW.remove_temporary_layers('modpath')" class="btn btn-default flow-path-btn">Clear Data</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modpath-status hidden">
+        <div id="modpath-status-bar"></div>
+    </div>
+</div>

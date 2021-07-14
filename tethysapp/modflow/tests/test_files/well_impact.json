@@ -1,0 +1,1 @@
+{"name":"NewFeatureType","type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-111.6731704953,40.234272533831,0]},"properties":{"Flowrate":-5000,"ID":"1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-111.673104953,40.23427533831,0]},"properties":{"Flowrate":-2000,"ID":"2"}}]}

@@ -1,0 +1,349 @@
+{% extends "atcore/map_view/map_view.html" %}
+{% load tethys_gizmos staticfiles %}
+
+{% block import_gizmos %}
+  <script src="https://cdn.plot.ly/plotly-1.41.3.min.js"></script>
+{% endblock %}
+
+{% block header_buttons %}
+  {% if admin_user %}
+    <div class="header-button">
+      <a href="{% url 'modflow:app_users_manage_resources' %}" data-toggle="tooltip" data-placement="bottom" title="Admin">Admin</a>
+    </div>
+  {% endif %}
+    <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+      <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+    </div>
+{% endblock %}
+
+{% block map_tabs %}
+  {% if show_layer_selector %}
+  <div class="transient-selector">
+      <div style="padding-top: 10px">
+        <label for="layer_selector" style="vertical-align:top; padding-right: 10px"><strong>Layer:</strong></label>
+        <select name="layer_selector" id="layer_selector" size="{%if nlay >= 4 %} 4 {% else %} {{ nlay }} {% endif %}" style="width:60px; vertical-align:top">
+            {% for layer in layer_options %}
+                <option value="{{ layer.0 }}" {% if layer.0 == 1 %}selected{% endif %}>{{ layer.1 }}</option>
+            {% endfor %}
+        </select>
+      {% endif %}
+      {% if show_stress_period_selector %}
+        <label for="sp_selector" style="vertical-align:top; padding-right: 10px; padding-left:10px"><strong>Stress Period:</strong></label>
+        <select name="sp_selector" id="sp_selector" size="{%if nper >= 4 %} 4 {% else %} {{ nper }} {% endif %}" style="width:60px; vertical-align:top">
+            {% for stress_period in stress_period_options %}
+                <option value="{{ stress_period.0 }}" {% if stress_period.0 == 1 %}selected{% endif %}>{{ stress_period.1 }}</option>
+            {% endfor %}
+        </select>
+      </div>
+  </div>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}
+
+{% block legend_items %}
+  <div id="legend-drawdown" class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Drawdown in {{ length_unit }}</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+    </ul>
+  </div>
+  <div id="legend-streamflow"  class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Stream Depletion in gpm.</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+    </ul>
+    <label class="flatmark"><span class="display-name">positive value indicates stream depletion</span></label>
+  </div>
+  <div id="legend-streamflow-percentage"  class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Percent (%) Stream Depletion</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+    </ul>
+  </div>
+  <div id="legend-leakage" class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Change in Stream Leakage (After - Before) in gpm.</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+    </ul>
+    <label class="flatmark"><span class="display-name">(-) values indicate a decrease and (+) values indicate an increase in stream leakage.</span></label>
+  </div>
+  <div id="legend-leakage-percentage" class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Percent (%) Change in Stream Leakage</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+    </ul>
+  </div>
+  <div id="legend-flowpath" class="hidden">
+    <li class="legend-group-item">
+      <label class="flatmark"><span class="display-name">Flow Path</span>
+      </label>
+    </li>
+    <ul class="legend-list" data-collapsed="false">
+      <div class="legend-item">
+        <li class="legend-list-item">
+          <p>User Drawn Point</p>
+          <div class="color-circle" style="background-color: #ff3232;"></div>
+        </li>
+      </div>
+      <div class="legend-item">
+        <li class="legend-list-item">
+          <p>Specified point to point of discharge.</p>
+          <div class="color-box" style="background-color: #0456db;"></div>
+        </li>
+      </div>
+      <div class="legend-item">
+        <li class="legend-list-item">
+          <p>Point of recharge to specified point.</p>
+          <div class="color-box" style="background-color: #16e23c;"></div>
+        </li>
+      </div>
+    </ul>
+  </div>
+  {{ block.super }}
+{% endblock %}
+
+{% block app_content %}
+  <div class="alert alert-warning" role="alert" style="display:none;">
+    <strong id="alert-message">Holy guacamole!</strong>
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {{ block.super }}
+{% endblock %}
+
+{% block app_actions %}
+  {% gizmo flow_path_slide_sheet %}
+  {% gizmo pump_impact_slide_sheet %}
+  <div class="app-action-button" title="Flow Path Tool">
+    <a class="btn btn-default btn-flow_path"><img src="{% static 'modflow/images/flow_path_icon.png' %}" height="25" width="25"/></a>
+  </div>
+  <div class="app-action-button1" title="Well Influence Tool">
+    <a class="btn btn-default btn-pump_impact"><img src="{% static 'modflow/images/pump_impact_icon.png' %}" height="25" width="25"/></a>
+  </div>
+{% endblock %}
+
+{% block after_app_content %}
+  {{ block.super }}
+  <div class="hidden" id="publication_name" data-value="{{ publication }}"></div>
+  <div class="hidden" id="publication_link" data-value="{{ publication_link }}"></div>
+  <div class="hidden" id="tools_tab_name" data-value="{{ tools_tab_name }}"></div>
+  <div class="hidden" id="well_influence_tool_name" data-value="{{ well_influence_tool_name }}"></div>
+  <div class="hidden" id="flow_path_tool_name" data-value="{{ flow_path_tool_name }}"></div>
+  <div class="hidden" id="results_tab_name" data-value="{{ results_tab_name }}"></div>
+  <div class="modal fade" id="pump-upload-modal" tabindex="-1" role="dialog" aria-labelledby="pump-upload-modal-label">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form id="well-upload-form" method="POST" enctype="multipart/form-data">
+            <hidden id="model_length_unit" data-value="{{length_unit}}"></hidden>
+            <hidden id="model_time_unit" data-value="{{time_unit}}"></hidden>
+            <input name="method" value="well_upload" hidden>
+            {% csrf_token %}
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="modal-title">Import Well Locations</h3>
+            </div>
+            <div class="modal-body">
+              <p>Import wells from a CSV file or a shapefile. Shapefiles containing "flowrate" and "depth" attributes
+                will import appropriate values. CSV files must have extraction rate in column 2, well depth in column 3
+                and well location in column 4. The first row in the csv file is assumed to be a header row.</p>
+              <div class="form-group {% if file_upload_error %}has-error{% endif %}" id="input-file-upload-wrapper">
+                <label class="control-label" for="pump-file-upload"></label>
+                <div class="pump-file-wrapper">
+                  <input id="pump-file-upload"
+                         class="file-input"
+                         name="pump-file-upload"
+                         type="file"
+                         accept="{{ file_upload_accept }}"
+                         {% if file_upload_multiple %}multiple{% endif %}>
+                  <label for="pump-file-upload" class="btn btn-default btn-file-input slide-sheet-btn">Browse</label>
+                </div>
+                <br>
+                <span id="pump-file-upload-text"></span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <input type="submit" class="btn btn-primary" id="well-upload-submit" value="Upload">
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+
+<div class="modal fade" id="show-alert-modal" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="modal-title">Error Message</h3>
+            </div>
+            <div class="modal-body" id="modal-alert-message">Error</div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-danger" id="show-alert-ok" value="OK">
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="hidden" id="show_helper_status" data-value="{{ show_helpers }}"></div>
+  <div class="modal fade modflow-model-modal" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="help-modal-label">Quick Tips</h4>
+
+        <ul class="pagination custom-tab-set">
+            <!-- <li class="page-item active"><a class="page-link uniform-tab" data-page="overview-page" href="#">Overview</a></li> -->
+            <li class="page-item active"><a class="page-link uniform-tab" data-page="menu-bar-page" href="#">Menu Bar</a></li>
+            <li class="page-item "><a class="page-link uniform-tab" data-page="model-explorer-page" href="#">Model Explorer</a></li>
+            <li class="page-item "><a class="page-link uniform-tab" data-page="toolbar-page" href="#">Toolbar</a></li>
+            <li class="page-item "><a class="page-link uniform-tab" data-page="map-window-page" href="#">Map Window</a></li>
+            <li class="page-item "><a class="page-link uniform-tab" data-page="particletracking-page" href="#">Flow Path Tool</a></li>
+            <li class="page-item "><a class="page-link uniform-tab" data-page="wellinfluence-page" href="#">Well Influence Tool</a></li>
+          </ul>
+          </div>
+        <!-- <div class="modal-body" id="overview-page">
+          <div class="container">
+            <ul style="list-style-type:disc;">
+              <li>Toggle map layers from the "Layers" tab on the left side of the screen.
+                View legends for the selected models from the "Legend" tab.</li>
+            </ul>
+          </div>
+        </div>-->
+        <div class="modal-body" id="menu-bar-page">
+          <div class="container">
+            <ul style="list-style-type:disc;">
+              <li>The <strong>Menu Bar</strong> is the horizontal strip at the top with the Show/Hide Model Explorer button at the left, and the Admin, Help, Settings,<br> and Exit buttons at the right.</li>
+              <li>The <strong>Show/Hide Model Explorer</strong> button causes the Model Explorer slider on the left to open or close.</li>
+              <li>The <strong>Admin</strong> button opens the Admin Settings for the Groundwater Model Simulations app. This button is only available for <br>App Admin Users.</li>
+              <li>The <strong>Help</strong> button opens the Quick Tips window.</li>
+              <li>The <strong>Settings</strong> button opens the Settings page for the Tethys installation.</li>
+              <li>The <strong>Exit</strong> button closes the Groundwater Model Simulations app.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-body hidden" id="model-explorer-page">
+          <div class="container">
+            <ul style="list-style-type:disc;">
+              <li>The <strong>Model Explorer</strong> is turned on or off by clicking the Show/Hide Model Explorer button in the Menu Bar. It has three tabs: Tools,<br> Model Details and Legend. </li>
+              <li>The <strong>Tools</strong> tab contains tools that can be used to work with the data in the model. </li>
+              <li>The <strong>Model</strong> Details tab has the model data. It allows layer groups to be turned on or off, and for individual layers to be selected.<br> This affects what appears in the Map Window. </li>
+              <li>The <strong>Legend</strong> tab displays a legend for each active layer (those selected on the Layers tab). </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-body hidden" id="toolbar-page">
+          <div class="container">
+            <ul style="list-style-type:disc;">
+              <li>The Toolbar is found at the bottom of the Map Window. It contains tools that can be used to work with the data in the model. <br>The available tools include the following: Flow Path Tool, Well Influence Tool.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-body hidden" id="map-window-page">
+          <div class="container">
+            <p>The Map Window shows a map of the model area, displays active layers, and shows wells and flow paths introduced by the tools. <br>There are also a number of tools and buttons within the Map Window:</p>
+            <p><strong>Top Left Corner</strong>:</p>
+            <ul style="list-style-type:disc;">
+              <li>Zoom in - Zooms in on the model area.</li>
+              <li>Fit to extent - Zooms in or out to the extents of the model area.</li>
+              <li>Zoom out - Zooms out on the model area.</li>
+              <li>Base Map - A drop-down listing all available base maps for the area. A &quot;None&quot; option is available at the top. It turns off the map <br> display so only the selected layers are displayed.</li>
+            </ul>
+            <p><strong>Top Right Corner</strong>:</p>
+            <ul style="list-style-type:disc;">
+              <li>Search Bar - Enter search terms to find any matches with model content.</li>
+              <li>Toggle full screen - Switches the Map Window view to either full-screen or confined within the browser.</li>
+            </ul>
+            <p><strong>Bottom Right</strong>:</p>
+            <ul style="list-style-type:disc;">
+              <li>Attribution - Provides required attribution for the map in use in the Map Window. This button is not always visible, depending on the <br> map selected.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-body hidden" id="particletracking-page">
+          <h3>Flow Path Tool</h3>
+          <p>Use the Flow Path Tool by following these steps:</p>
+          <ol type="1">
+            <li>Click <strong>Flow Path Tool</strong>  <img style="width:2%" src="/static/modflow/images/flow_path_icon.png">  at the bottom right of the screen to reveal the Flow Path window.</li>
+            <li>Enter a value for your particle in the Depth Below Water Table field.</li>
+            <li>Click <strong>Generate Particle</strong>.</li>
+            <li>Move your mouse cursor to the area inside the model boundary (red line) and click on the location where the particle should be generated.</li>
+            <li>Wait for the application to run your model and view the result.</li>
+          </ol>
+          <p>Your result should look similar to this figure</p>
+          <p><img src="/static/modflow/images/Flow-Path-result.png"></p>
+        </div>
+        <div class="modal-body hidden" id="wellinfluence-page">
+          <h3>Simulate Well Influence</h3>
+          <ul style="list-style-type:disc;">
+            <li>Clicking the <strong>Well Influence Tool</strong>   <img style="width:2%" src="/static/modflow/images/pump_impact_icon.png"> button opens the Simulate Well Influence sheet at the bottom of the Map Window. </li>
+            <li>Clicking <strong>Add a Well</strong> creates an entry for a new well. Information about each well, including extraction rate, type, location, and depth, can be entered. </li>
+            <li>Clicking <strong>Upload</strong> opens an Import Well Locations dialog where you can browse for a CSV file or shapefile containing well location data.</li>
+            <li>Clicking <strong>Calculate Drawdown</strong> performs a drawdown calculation in feet for all wells. When the calculation is complete, a new layer group will appear in the Model Explorer. </li>
+            <li>Clicking <strong>Calculate Stream Depletion</strong> performs streamflow out and stream leakage calculations for all wells. When the calculation is complete, a new layer group will appear in the Model Explorer. </li>
+            <li>Clicking <strong>Clear Data</strong> clears all calculated data and removes the layer groups associated with the calculations.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <div class="div-left">
+            <input style="text-align:left"  type="checkbox" id="modal-show-again" {% if not show_helpers %} checked {% endif %}>
+            <label for="modal-show-again">Don't Show Again</label>
+          </div>
+          <div class="div-right">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="spatial-data-attributes"
+       data-enable-spatial-data-popup="{{ enable_spatial_data_popup|jsonify }}"
+       style="display: none;"
+  ></div>
+
+  {# Spatial Data Pop-up #}
+  <div id="spatial-data-popup" class="ol-popup">
+    <a href="javascript:void(0);" id="spatial-data-popup-close-btn" class="ol-popup-close-btn">&times;</a>
+    <div id="spatial-data-popup-content" class="ol-popup-content">
+      <form id="spatial-data-form">
+        <img src="{% static 'atcore/images/loading-dots-small.gif' %}">
+      </form>
+      {% block popup_footer %}
+        <a href="javscript:void(0)" class="btn btn-default" onclick="SPATIAL_DATA_MWV.save_data();">Save</a>
+      {% endblock %}
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'modflow/css/map_view.css' %}" rel="stylesheet"/>
+  <link href="{% static 'modflow/css/slide_sheet.css' %}" rel="stylesheet"/>
+  <link href="{% static 'atcore/file_input/css/file_input.css' %}" rel="stylesheet"/>
+  <link href="{% static 'modflow/js/spatial_data_mwv.css' %}" rel="stylesheet"/>
+  <link href="{% static 'atcore/resource_workflows/spatial_dataset_mwv.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'modflow/js/modflow_model_map_view.js' %}" type="text/javascript"></script>
+  <script src="{% static 'atcore/js/utilities.js' %}" type="text/javascript"></script>
+  <script src="{% static 'atcore/js/messages.js' %}" type="text/javascript"></script>
+<!--  <script src="{% static 'modflow/js/spatial_data_mwv.js' %}" type="text/javascript"></script>-->
+  <script src="{% static 'modflow/js/spatial_data_mwv.js' %}" type="text/javascript"></script>
+  <script src="{% static 'atcore/resource_workflows/spatial_dataset_mwv.js' %}" type="text/javascript"></script>
+{% endblock %}

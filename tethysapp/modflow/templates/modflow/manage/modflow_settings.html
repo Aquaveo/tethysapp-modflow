@@ -1,0 +1,26 @@
+{% extends "modflow/base.html" %}
+{% load tethys_gizmos staticfiles %}
+
+{% block app_navigation_items %}
+  {{ block.super }}
+{% endblock %}
+
+{% block app_content %}
+<form id="modify-modflow-settings-form" method="post" action="">
+  {% csrf_token %}
+  {% gizmo drawdown_contour_levels_input %}
+  {% gizmo std_minimum_change_input %}
+  <div id="organization-select-wrapper">
+      {% gizmo select_input organization_select %}
+  </div>
+
+  <input type="submit" class="btn btn-success" name="modify-modflow-settings-save" value="Save Changes">
+</form>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <link href="{% static 'modflow/css/main.css' %}" rel="stylesheet"/>
+  <script src="{% static 'modflow/js/main.js' %}" type="text/javascript"></script>
+  <script src="{% static 'modflow/js/modflow_settings.js' %}" type="text/javascript"></script>
+{% endblock %}

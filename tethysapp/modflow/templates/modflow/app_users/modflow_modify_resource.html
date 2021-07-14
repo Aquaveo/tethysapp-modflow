@@ -1,0 +1,41 @@
+{% extends "atcore/app_users/modify_resource.html" %}
+{% load tethys_gizmos staticfiles %}
+
+{% block app_navigation_items %}
+  {{ block.super }}
+{% endblock %}
+
+{% block custom_app_content %}
+  {{ block.super }}
+
+  {# Length #}
+  {% gizmo length_unit %}
+
+  {# Time #}
+  {% gizmo time_unit %}
+
+  {# XLL FIELD #}
+  {% gizmo xll_input %}
+
+  {# YLL FIELD #}
+  {% gizmo yll_input %}
+
+  {# ROTATION FIELD #}
+  {% gizmo rotation %}
+
+  {# MODEL VERSION SELECT #}
+  {% gizmo model_version_select %}
+
+  {# Publication #}
+  {% gizmo publication %}
+
+  {# Publication Link #}
+  {% gizmo publication_link %}
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <link href="{% static 'modflow/css/main.css' %}" rel="stylesheet"/>
+  <script src="{% static 'modflow/js/main.js' %}" type="text/javascript"></script>
+  <script src="{% static 'modflow/js/model_selection_map_view.js' %}" type="text/javascript"></script>
+{% endblock %}

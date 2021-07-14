@@ -1,0 +1,55 @@
+{% extends "atcore/app_users/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_icon %}
+  {# The path you provided in your app.py is accessible through the tethys_app.icon context variable #}
+  <img src="{% static tethys_app.icon %}">
+{% endblock %}
+
+{# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
+{% block app_title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_navigation_items %}
+  {% url 'modflow:home' as home_url %}
+  {% url 'modflow:app_users_manage_resources' as manage_resource_url %}
+  {% url 'modflow:app_users_manage_users' as manage_users_url %}
+  {% url 'modflow:app_users_manage_organizations' as manage_organizations_url %}
+  {% url 'modflow:app_users_user_account' as user_account_url %}
+  {% url 'modflow:settings' as modflow_settings_url %}
+
+  <li {% if request.path == home_url %}class="active"{% endif %}><a href="{{ home_url }}">Map</a></li>
+  {% if show_resources_link %}
+    <li {% if request.path == manage_resource_url %}class="active"{% endif %}><a href="{{ manage_resource_url }}">Models</a></li>
+  {% endif %}
+  {% if show_users_link %}
+    <li {% if request.path == manage_users_url %}class="active"{% endif %}><a href="{{ manage_users_url }}">Users</a></li>
+  {% endif %}
+  {% if show_organizations_link %}
+    <li {% if request.path == manage_organizations_url %}class="active"{% endif %}><a href="{{ manage_organizations_url }}">Organizations</a></li>
+  {% endif %}
+  <li {% if request.path == user_account_url %}class="active"{% endif %}><a href="{{ user_account_url }}">My Account</a></li>
+  {% if is_app_admin %}
+    <li {% if request.path == modflow_settings_url %}class="active"{% endif %}><a href="{{ modflow_settings_url }}">Settings</a></li>
+  {% endif %}
+{% endblock %}
+
+{% block app_content %}
+{% endblock %}
+
+{% block app_actions %}
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'modflow/css/main.css' %}" rel="stylesheet"/>
+  <link href="{% static 'atcore/css/breadcrumbs.css' %}" rel="stylesheet"/>
+  <link href="{% static 'atcore/css/flat_nav.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'modflow/js/main.js' %}" type="text/javascript"></script>
+{% endblock %}

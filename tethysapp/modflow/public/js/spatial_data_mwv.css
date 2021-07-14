@@ -1,0 +1,12 @@
+#spatial-data-popup {
+    display: none;
+    top: 10%;
+    height: 440px !important;
+    left:23%;
+    width: 730px;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: none !important;
+}

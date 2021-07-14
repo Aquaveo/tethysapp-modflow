@@ -1,0 +1,117 @@
+.legend-item .color-circle {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+#app-header .tethys-app-header #nav-title-wrapper .icon-wrapper img {
+    border-radius: 0;
+}
+
+.alert {
+    position: absolute;
+    z-index: 1001;
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+}
+
+#app-content-wrapper.show-nav #app-content .alert {
+    padding-right: 415px;
+}
+
+.modal-content {
+    background-color: #efefef;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.modflow-model-modal .modal-dialog {
+    width: 920px;
+}
+
+.modal-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.pagination {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+#app-content-wrapper #app-content #app-actions .btn {
+    margin-left: 11px;
+    padding: 4px;
+}
+
+#basemap_dropdown_container .dropdown-menu {
+    max-height: 400px !important;
+    overflow-y: auto !important;
+}
+
+.div-right {
+    float: right;
+}
+
+.div-left {
+    float: left;
+}
+
+.uniform-tab {
+    text-align: center !important;
+}
+
+.custom-tab-set {
+    padding-left: 122px;
+    padding-top: 10px;
+}
+
+.pump-impact-status-child {
+    background-color: #efefef;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #656162;
+    padding-top: 15px;
+    padding-bottom: 35px;
+}
+
+.modpath-status-child {
+    background-color: #efefef;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #656162;
+    padding-top: 15px;
+    padding-bottom: 35px;
+}
+
+.text-model-running {
+    position: absolute;
+    text-align: left;
+    top: 1%;
+    left: 20%;
+    height: 70px;
+    margin-left: -11% !important;
+}
+
+.transient-selector {
+    top:0;
+    height: 100px;
+    position: sticky;
+    z-index: 999;
+    background: #EFEFEF;
+}
+
+#sp_selector {
+    width: 120px !important;
+}

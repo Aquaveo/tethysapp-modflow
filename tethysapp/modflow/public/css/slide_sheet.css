@@ -1,0 +1,279 @@
+#pump-impact-slide-sheet {
+    height: 320px !important;
+    margin-bottom: 50px;
+    overflow-y: auto;
+    background-color: #efefef !important;
+    border-left: solid;
+    border-width: 1px;
+}
+
+#flow-path-slide-sheet {
+    height: 160px !important;
+    margin-bottom: 50px;
+    background-color: #efefef !important;
+    border-left: solid;
+    border-width: 1px;
+}
+
+.flow-path-col {
+    padding-left: 25px !important;
+    padding-bottom: 8px !important;
+}
+.flow-path-btn {
+    margin-left: 4px !important;
+}
+.slide-sheet .col-md-1 a {
+    line-height: 1 !important;
+}
+
+.custom-size {
+    width: 190px !important;
+}
+
+table {
+    width: 100% !important;
+    margin: auto;
+    border: 1px solid black;
+    table-layout: fixed;
+}
+
+table input{
+    border:none;
+    width: 100%;
+    text-align: center;
+}
+
+table th {
+    text-align: center;
+}
+
+table td{
+    text-align: center;
+}
+
+.pump_location {
+    width: 20%;
+    overflow-x:auto;
+}
+
+.slide-sheet-btn {
+    display: inline !important;
+}
+
+#block_container
+{
+    text-align: left;
+}
+
+.tbl-inline {
+    text-align: left !important;
+    padding-left: 5px !important;
+    border: none;
+    width: 560px !important;
+    display: inline;
+}
+
+.td-inline {
+    width: 210px !important;
+    text-align: left !important;
+    padding-left: 25px !important;
+    padding-bottom: 10px;
+    background-color: #efefef;
+    border: none
+    line-height: 10px;
+}
+
+.td-inline-workflow {
+    width: 210px !important;
+    text-align: left !important;
+    padding-left: 25px !important;
+    border: none
+    line-height: 10px;
+}
+
+
+.td-align {
+    margin: auto;
+    display: block;
+    vertical-align: top;
+}
+
+
+#modpath-status-bar {
+    position: absolute !important;
+    top:-67px !important;
+    left: 0px !important;
+    height:160px !important;
+    width: 100% !important;
+    background: rgba( 0, 0, 0, 0.3) !important;
+    text-align: center;
+}
+
+#pump-impact-status-bar{
+    position: absolute !important;
+    top:-67px !important;
+    left: 0px !important;
+    height:517px !important;
+    width: 105% !important;
+    background: rgba( 0, 0, 0, 0.3) !important;
+    text-align: center;
+}
+
+.pump-impact-status-child {
+    position: absolute;
+    top: 31%;
+    left:50%;
+    -webkit-transform:translateX(-50%);
+    transform: translateX(-50%);
+    z-index:9999;
+}
+
+.modpath-status-child {
+    position: absolute;
+    top: 10%;
+    left:50%;
+    -webkit-transform:translateX(-50%);
+    transform: translateX(-50%);
+    z-index:9999;
+}
+
+#button-controller {
+    width: 40%;
+    display: inline;
+}
+.pump-impact-status {
+    margin-left: -20px;
+}
+
+#run-pump-impact-btn {
+    margin-left:25px !important;
+}
+
+.slide-sheet-btn{
+  background-color: white;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+.slide-sheet-btn:hover {
+  background-color: #1b95dc;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  -moz-transition: background-color 0.3s, color 0.3s;
+  -o-transition: background-color 0.3s, color 0.3s;
+  -ms-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.selected {
+  background-color: #1b95dc;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  -moz-transition: background-color 0.3s, color 0.3s;
+  -o-transition: background-color 0.3s, color 0.3s;
+  -ms-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+#flow-path .container {
+    padding-left: 10px;
+    margin-left: unset !important;
+}
+
+#flow-path .container .form-control{
+    height:80%
+}
+
+.btn-file-input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+}
+
+.stream-depletion-checkboxes {
+    display: inline-block !important;
+    padding-left: 2%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.pump_impact_div {
+    display: block;
+    height: 190px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+
+#pump_impact_table {
+    background-color: rgba(10, 10, 10, 0.2);
+}
+
+.modflow-upload-shape {
+    vertical-align: middle !important;
+    text-align: middle;
+    width:120px;
+}
+
+.modflow-add-well {
+    vertical-align: middle !important;
+    text-align: middle;
+    width:110px;
+}
+
+.custom-btn {
+    padding: 6px !important;
+}
+
+.center-btn {
+    margin-left: 0px !important;
+}
+
+#btn-cancel-modpath {
+    position: absolute !important;
+    top:75px;
+    left:72.5%;
+}
+
+#btn-cancel-well-influence {
+    position: absolute !important;
+    top:75px;
+    left:72.5%;
+}
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
+.DiversionInput {
+    height: 20px;
+    padding-right: 23px;
+}
+
+.PumpingScheduleButton {
+    margin-left: -23px;
+    height: 20px;
+    width: 23px;
+    background: gray;
+    line-height: 0px;
+    color: white;
+    border: 0;
+    -webkit-appearance: none !important;
+}

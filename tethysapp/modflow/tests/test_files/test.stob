@@ -1,0 +1,15 @@
+#           CoverageGUID ObjectType ID X Y Time OBNAME
+#GMSCOMMENT 89ff8f47-79fb-4e40-9f5a-f538beced2c0 ARC 1 442649.09145122 4453799.9614093 1.0 no_strf0
+    1     9     1     4                          #  1. NQST NQCST NQTST IUSTOBSV
+         1.0                                     #  2. TOMULTST  EVFST IOWTQST
+    1     9                                      #  3. NQOBST NQCLST
+no_strf0         1          0.0          1.0     #  4. OBSNAM IREFSP TOFFSET FLWOBS
+    1     1          1.0                         #  5. SEGMENT REACH FACTOR
+    1     2          1.0                         #  5. SEGMENT REACH FACTOR
+    1     3          1.0                         #  5. SEGMENT REACH FACTOR
+    1     4          1.0                         #  5. SEGMENT REACH FACTOR
+    1     5          1.0                         #  5. SEGMENT REACH FACTOR
+    1     6          1.0                         #  5. SEGMENT REACH FACTOR
+    1     7          1.0                         #  5. SEGMENT REACH FACTOR
+    1     8          1.0                         #  5. SEGMENT REACH FACTOR
+    1     9          1.0                         #  5. SEGMENT REACH FACTOR
