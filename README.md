@@ -1,8 +1,12 @@
-# Installation
+# A MODFLOW Tethys App
 
-## Services
+![Screen shot of MODFLOW App](tethysapp/modflow/public/images/flow-path-example.png)
 
-### GeoServer & PostGIS
+## Installation
+
+### Services
+
+#### GeoServer & PostGIS
 
 ```bash
 tethys docker init -c geoserver postgis
@@ -13,7 +17,7 @@ Notes:
 * Configure geoserver container with 1 REST node and 4 normal nodes
 * At least 1 GB per node
 
-### HTCondor
+#### HTCondor
 
 A system installation of HTCondor is fine. For development use a personal installation.
 
@@ -29,7 +33,7 @@ ln -s <which_python_result> /opt/tethys-python
 
 Alternatively, you may want to use the `aquaveollc/condor-standalone` image to run HTCondor in a container. If you do so, you will need to create a new Dockerfile that extends this image and adds the `tethysext-atcore` and `modflow_adapter` libraries (the image should already have a conda environment with the `/opt/tethys-python` link). See: https://hub.docker.com/r/aquaveollc/condor-standalone
 
-## App Dependencies
+### App Dependencies
 
 ```bash
 # Download and Install ATcore
@@ -41,14 +45,14 @@ git clone https://github.com/Aquaveo/modflow-adapter.git
 python setup.py <develop|install>
 ```
 
-## App
+### App
 
 ```bash
 git clone https://github.com/Aquaveo/tethysapp-modflow.git
 tethys install <-d>
 ```
 
-## Setup Services and Settings
+### Setup Services and Settings
 
 ```bash
 # Sync App to DB
@@ -68,13 +72,13 @@ tethys link spatial:<gs_service_name> <app_package>:ds_spatial:primary_geoserver
 tethys syncstores modflow
 ```
 
-## Initialize App
+### Initialize App
 
 ```bash
 python init_modflow.py
 ```
 
-# Testing
+## Testing
 
 The app includes a `test.sh` script that will run all tests and lint. To use:
 
